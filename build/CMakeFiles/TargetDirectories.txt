@@ -1,0 +1,3 @@
+/Users/superwhitetuna/Documents/Code/homebrewShader/build/CMakeFiles/GLSLRenderer.dir
+/Users/superwhitetuna/Documents/Code/homebrewShader/build/CMakeFiles/edit_cache.dir
+/Users/superwhitetuna/Documents/Code/homebrewShader/build/CMakeFiles/rebuild_cache.dir
