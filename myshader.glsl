@@ -2,6 +2,17 @@ float sdCircle(vec2 p, float r)
 {
     return length(p) - r;
 }
+
+float sdTriangle(vec2 p, float r)
+{
+    const float k = sqrt(3.0);
+    p.x = abs(p.x) - r;
+    p.y = p.y + r/k;
+    if (p.x + k * p.y > 0.0) p = vec2(p.x - k * p.y, -k * p.x - p.y) / 2.0;
+    p.x -= clamp(p.x, -2.0 * r, 0.0);
+    return -length(p) * sign(p.y);
+}
+
 float random(vec2 st)
 {
     return (fract(sin(dot(st, vec2(12.9898, 78.233))) * 43758.5453123));
@@ -31,7 +42,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
     vec2 uv = fragCoord / iResolution.xy;
     uv = uv * 2.0 - 1.0;
     
-    vec2 mainCenter = vec2(sin(iTime * 2.0), sin(iTime * 3.0));
+    vec2 mainCenter = vec2(sin(iTime + 2.0), sin(iTime - 2.0));
     float mainRadius = sin(abs(1.0 + sin(iTime)));
     float mainCircle = sdCircle(uv - mainCenter, mainRadius);
 
@@ -52,12 +63,16 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
     vec2 small5Center = mainCenter + offset5;
     float d5 = sdCircle(uv - small5Center, smallRadius);
 
-    vec2 small6Center = vec2(-sin(iTime * 2.0), -sin(iTime * 3.0));
+    vec2 small6Center = vec2(-sin(iTime + 2.0), abs(sin(iTime)));
     // float small6Radius = mainRadius * 0.3;
     float d6 = sdCircle(uv - small6Center, 0.3);
 
+    vec2 triangleCenter = mainCenter;
+    float triangleSize = smallRadius * 0.8;
+    float mainTriangle = sdTriangle(uv - triangleCenter, triangleSize);
 
-    float d = min(mainCircle, min(d2, min(d3, min(d4, d5))));
+
+    float d = min(mainCircle, min(d2, min(d3, min(d4, min(d5, mainTriangle)))));
     
     float s = min(d6, d6);
        

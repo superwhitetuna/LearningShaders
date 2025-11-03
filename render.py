@@ -29,7 +29,7 @@ void main() {{
 
 # Window settings
 width, height = 1080, 1080  # Desired resolution
-duration = 6.28318530718  # Video duration in seconds
+duration = 7.28318530718  # Video duration in seconds
 fps = 120  # Frames per second
 total_frames = int(duration * fps)
 
