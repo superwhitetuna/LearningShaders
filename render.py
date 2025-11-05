@@ -9,7 +9,7 @@ import traceback
 
 # Load shader from myshader.glsl
 try:
-    with open("myshader.glsl", "r") as file:
+    with open("test.glsl", "r") as file:
         shader_body = file.read()
 except FileNotFoundError:
     print("Error: myshader.glsl not found in current directory")
